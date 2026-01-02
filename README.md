@@ -2,7 +2,7 @@
 
 This program implements a singly linked list and required algorithms. 
 
-## Implemented Functions
+### Implemented Functions
 - **reverse()**  
   Reverses a singly linked list by changing links between nodes.
 
@@ -92,19 +92,39 @@ is recorded for each trial. Based on the simulation results, the
 probability of each possible sum (from 2 to 12) is calculated.
 
 ```
-Sum | Monte Carlo | Analytical
-------------------------------
-  2 | 0.0277      | 0.0278
-  3 | 0.0552      | 0.0556
-  4 | 0.0833      | 0.0833
-  5 | 0.1114      | 0.1111
-  6 | 0.1383      | 0.1389
-  7 | 0.1671      | 0.1667
-  8 | 0.1396      | 0.1389
-  9 | 0.1110      | 0.1111
- 10 | 0.0835      | 0.0833
- 11 | 0.0553      | 0.0556
- 12 | 0.0275      | 0.0278
+Number of trials: 100
+Sum | Monte Carlo | Analytical | Error
+---------------------------------------------
+  2 | 0.0400     | 0.0278     | 0.0122
+  3 | 0.0600     | 0.0556     | 0.0044
+  4 | 0.0700     | 0.0833     | 0.0133
+  5 | 0.1300     | 0.1111     | 0.0189
+  6 | 0.1500     | 0.1389     | 0.0111
+  7 | 0.1900     | 0.1667     | 0.0233
+  8 | 0.1400     | 0.1389     | 0.0011
+  9 | 0.0900     | 0.1111     | 0.0211
+ 10 | 0.0900     | 0.0833     | 0.0067
+ 11 | 0.0300     | 0.0556     | 0.0256
+ 12 | 0.0100     | 0.0278     | 0.0178
+Mean Absolute Error (MAE): 0.014141
+
+---------------------------------------------
+
+Number of trials: 1000000
+Sum | Monte Carlo | Analytical | Error
+---------------------------------------------
+  2 | 0.0275     | 0.0278     | 0.0003
+  3 | 0.0554     | 0.0556     | 0.0001
+  4 | 0.0836     | 0.0833     | 0.0003
+  5 | 0.1115     | 0.1111     | 0.0003
+  6 | 0.1388     | 0.1389     | 0.0000
+  7 | 0.1665     | 0.1667     | 0.0002
+  8 | 0.1391     | 0.1389     | 0.0002
+  9 | 0.1104     | 0.1111     | 0.0007
+ 10 | 0.0837     | 0.0833     | 0.0003
+ 11 | 0.0558     | 0.0556     | 0.0003
+ 12 | 0.0277     | 0.0278     | 0.0001
+Mean Absolute Error (MAE): 0.000257
 ```
 
 The obtained probabilities are visualized and compared with the
@@ -112,7 +132,16 @@ analytical probabilities calculated theoretically.
 
 ![task07.png](task07.png)
 
-Conclusion:
+
+Error convergence:
+
+An additional plot shows how the mean absolute error changes depending
+on the number of Monte Carlo trials. The error decreases as the number
+of simulations increases, demonstrating convergence of the method.
+
+![task07_02.png](task07_02.png)
+
+### Conclusion:
 As the number of simulations increases, the Monte Carlo results
 converge to the analytical probabilities. This confirms the correctness
 of the Monte Carlo method for estimating probabilities.

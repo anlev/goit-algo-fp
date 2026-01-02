@@ -54,19 +54,66 @@ def plot_probabilities(monte_carlo, analytical):
     plt.show()
 
 
-if __name__ == "__main__":
-    TRIALS = 1_000_000
+def calculate_errors(monte_carlo, analytical):
+    errors = {}
+    total_error = 0
 
-    monte_carlo_probs = monte_carlo_dice_simulation(TRIALS)
+    for s in range(2, 13):
+        error = abs(monte_carlo.get(s, 0) - analytical[s])
+        errors[s] = error
+        total_error += error
+
+    mean_absolute_error = total_error / 11
+    return errors, mean_absolute_error
+
+
+def plot_error_convergence(trials_list, analytical):
+    maes = []
+
+    for trials in trials_list:
+        monte_carlo = monte_carlo_dice_simulation(trials)
+        _, mae = calculate_errors(monte_carlo, analytical)
+        maes.append(mae)
+
+    plt.figure(figsize=(8, 5))
+    plt.plot(trials_list, maes, marker="o")
+    plt.xscale("log")
+    plt.xlabel("Number of trials (log scale)")
+    plt.ylabel("Mean Absolute Error (MAE)")
+    plt.title("Monte Carlo Error Convergence")
+    plt.grid(True)
+    plt.show()
+
+if __name__ == "__main__":
+    trials_list = [100, 1_000_000]
     analytical_probs = analytical_probabilities()
 
-    print("Sum | Monte Carlo | Analytical")
-    print("-" * 30)
-    for s in range(2, 13):
-        print(
-            f"{s:>3} | "
-            f"{monte_carlo_probs[s]:.4f}      | "
-            f"{analytical_probs[s]:.4f}"
+    for trials in trials_list:
+        monte_carlo_probs = monte_carlo_dice_simulation(trials)
+        errors, mae = calculate_errors(
+            monte_carlo_probs,
+            analytical_probs
         )
 
+        print(f"\nNumber of trials: {trials}")
+        print("Sum | Monte Carlo | Analytical | Error")
+        print("-" * 45)
+
+        for s in range(2, 13):
+            print(
+                f"{s:>3} | "
+                f"{monte_carlo_probs.get(s, 0):.4f}     | "
+                f"{analytical_probs[s]:.4f}     | "
+                f"{errors[s]:.4f}"
+            )
+
+        print(f"Mean Absolute Error (MAE): {mae:.6f}")
+
+    # Probability comparison plot
+    monte_carlo_probs = monte_carlo_dice_simulation(1_000_000)
     plot_probabilities(monte_carlo_probs, analytical_probs)
+
+    # Error convergence plot
+    convergence_trials = [100, 500, 1_000, 5_000, 10_000, 100_000, 1_000_000]
+    plot_error_convergence(convergence_trials, analytical_probs)
+
