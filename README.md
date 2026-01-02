@@ -2,7 +2,7 @@
 
 This program implements a singly linked list and required algorithms. 
 
-## Implemented Functions
+### Implemented Functions
 - **reverse()**  
   Reverses a singly linked list by changing links between nodes.
 
@@ -83,7 +83,7 @@ Total calories: 970
 Spent cost: 100
 ```
 
-# Task 07 – Monte Carlo Method (Dice Simulation)
+# Task 07 – Monte Carlo Method (task07.py)
 
 This task implements a Monte Carlo simulation of rolling two dice.
 
@@ -112,7 +112,7 @@ analytical probabilities calculated theoretically.
 
 ![task07.png](task07.png)
 
-Conclusion:
+### Conclusion:
 As the number of simulations increases, the Monte Carlo results
 converge to the analytical probabilities. This confirms the correctness
 of the Monte Carlo method for estimating probabilities.
